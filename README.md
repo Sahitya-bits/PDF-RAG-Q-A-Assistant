@@ -11,7 +11,7 @@ FastAPI exposes the backend workflow.
 
 ## Screenshot
 
-![Working Frontend](./screenshots/frontend.png)
+<img src="./screenshots/frontend.png" alt="My Image" style="border: 2px solid black; padding: 5px;">
 
 ## Tech Stack
 
