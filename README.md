@@ -197,11 +197,16 @@ http://localhost:6333
 ```
 
 Start your local Qdrant instance before running the application.
+This may be done by docker desktop app.
 
 ### 5. Start the Inngest Dev Server
 
 Start the local Inngest development server according to your Inngest
 setup.
+
+``` bash
+npx inngest-cli@latest dev -u http://127.0.0.1:8000/api/inngest --no-discovery
+```
 
 The application uses Inngest events to trigger:
 
