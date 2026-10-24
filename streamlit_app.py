@@ -43,7 +43,7 @@ async def send_rag_ingest_event(pdf_path: Path) -> None:
 st.title("Upload a PDF to Ingest")
 uploaded = st.file_uploader("Choose a PDF", type=["pdf"], accept_multiple_files=False)
 
-if uploaded is not None:
+if uploaded is not None and st.button("Inngest PDF"):
     with st.spinner("Uploading and triggering ingestion..."):
         path = save_uploaded_pdf(uploaded)
         # Kick off the event and block until the send completes

@@ -18,7 +18,7 @@ load_dotenv()
 gemini_client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 inngest_client = inngest.Inngest(
-    app_id="rag_app_demo",
+    app_id="rag_app",
     logger=logging.getLogger("uvicorn"),
     is_production=False,
     serializer=inngest.PydanticSerializer()
@@ -38,8 +38,8 @@ async def rag_ingest_pdf(ctx: inngest.Context):
 
     # upsert is adding to database
     def _upsert(chunk_and_src: RAGChunkAndSrc) -> RAGUpsertResult:
-        chunks = chunks_and_src.chunks
-        source_id = chunks_and_src.source_id
+        chunks = chunk_and_src.chunks
+        source_id = chunk_and_src.source_id
         vecs = embed_texts(chunks)
 
         ids = [str(uuid.uuid5(uuid.NAMESPACE_URL, f"{source_id}:{i}")) for i in range(len(chunks))]

@@ -165,7 +165,7 @@ Make sure you have:
 
 ``` bash
 git clone https://github.com/Sahitya-bits/PDF-RAG-Q-A-Assistant
-cd rag-ai-agent
+cd PDF-RAG-Q-A-Assistant
 ```
 
 ### 2. Install dependencies
@@ -190,14 +190,24 @@ local Inngest API shown above.
 
 ### 4. Start Qdrant
 
+Start your local qdrant container if it already exists using this command
+
+``` bash
+docker start qdrant
+```
+
 The application expects Qdrant to be available at:
 
 ``` text
 http://localhost:6333
 ```
 
-Start your local Qdrant instance before running the application.
-This may be done by docker desktop app.
+If it doesn't exist then create and run a new Qdrant container
+
+``` bash
+docker volume create qdrant_storage
+docker run -d --name qdrant --restart unless-stopped -p 127.0.0.1:6333:6333 -p 127.0.0.1:6334:6334 -v qdrant_storage:/qdrant/storage qdrant/qdrant
+```
 
 ### 5. Start the Inngest Dev Server
 
@@ -205,20 +215,22 @@ Start the local Inngest development server according to your Inngest
 setup.
 
 ``` bash
-npx inngest-cli@latest dev -u http://127.0.0.1:8000/api/inngest --no-discovery
+npx --ignore-scripts=false inngest-cli@latest dev -u http://127.0.0.1:8000/api/inngest --no-discovery
 ```
+
+Open the Inngest Dashboard: http://localhost:8288/
 
 The application uses Inngest events to trigger:
 
 -   `rag/ingest_pdf`
 -   `rag/query_pdf_ai`
 
-### 6. Start the FastAPI/Inngest backend
+### 6. Start the FastAPI backend
 
 Run:
 
 ``` bash
-uv run uvicorn main:app --reload
+uv run python -m uvicorn main:app --reload --host 127.0.0.1 --port 8000
 ```
 
 ### 7. Start the Streamlit frontend
@@ -226,7 +238,7 @@ uv run uvicorn main:app --reload
 In another terminal:
 
 ``` bash
-uv run streamlit run streamlit_app.py
+uv run python -m streamlit run streamlit_app.py
 ```
 
 Open the Streamlit URL shown in your terminal.

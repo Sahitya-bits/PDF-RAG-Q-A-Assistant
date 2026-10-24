@@ -12,3 +12,6 @@ wheels/
 __pycache__/
 qdrant_storage/
 uploads/
+
+# Cache
+.uploads/
