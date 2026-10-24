@@ -227,7 +227,7 @@ The application uses Inngest events to trigger:
 
 ### 6. Start the FastAPI backend
 
-Run:
+In another terminal:
 
 ``` bash
 uv run python -m uvicorn main:app --reload --host 127.0.0.1 --port 8000
